@@ -1,26 +1,37 @@
-import { useState } from 'react';
-import axios from 'axios';
 import { GetDirectoryContents } from './Functions/GetDirectoryContents';
+import { useState, useEffect } from 'react';
+import Toolbar from './Components/Toolbar';
+import { useDispatch } from 'react-redux';
+import { setCurrentPath } from './Store/Path';
 
 function App() {
-	const [count, setCount] = useState(0);
 	const [FileNames, setFileNames] = useState<string[]>(['test']);
+	const dispatch = useDispatch();
 
-	const GetFiles = async () => {
+	const InitialLoad = async () => {
 		let res = GetDirectoryContents();
-		console.log(res);
-		setFileNames(res);
+		setFileNames(res.Contents);
 	};
+
+	const testRedux = () => {
+		dispatch(setCurrentPath('redux test'));
+	};
+
+	useEffect(() => {
+		InitialLoad();
+	}, []);
 
 	return (
 		<>
-			<button onClick={GetFiles}>count is {count}</button>
+			<Toolbar />
 			<ul>
 				Files:
 				{FileNames.map((File) => (
 					<li className="black">{File}</li>
 				))}
 			</ul>
+			<hr />
+			<button onClick={testRedux} />
 		</>
 	);
 }

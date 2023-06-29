@@ -20,7 +20,12 @@ function createWindow() {
 		height: 600,
 		frame: false,
 		transparent: false,
-		// alwaysOnTop: false,
+		autoHideMenuBar: true,
+		center: true,
+		fullscreenable: false,
+		maximizable: false,
+		resizable: false,
+		alwaysOnTop: true,
 		webPreferences: {
 			nodeIntegration: true,
 			contextIsolation: false,
@@ -33,18 +38,24 @@ function createWindow() {
 		if (splashWindow) {
 			setTimeout(() => {
 				if (splashWindow) {
-					splashWindow.close();
-					splashWindow = null;
-
 					mainWindow = new BrowserWindow({
 						icon: path.join(process.env.PUBLIC, 'logo.png'),
 						width: 800,
 						height: 600,
+						transparent: false,
+						autoHideMenuBar: true,
+						center: true,
+						fullscreenable: false,
+						maximizable: false,
+						resizable: false,
 						webPreferences: {
 							nodeIntegration: true,
 							contextIsolation: false,
 						},
 					});
+
+					splashWindow!.close();
+					splashWindow = null;
 					mainWindow.loadFile('/index.html');
 
 					// Test active push message to Renderer-process.
