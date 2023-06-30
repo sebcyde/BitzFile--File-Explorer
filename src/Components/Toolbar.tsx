@@ -1,15 +1,22 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../Store/store';
+import { GoBack } from '../Functions/GoBack';
 
-type Props = {};
-
-const Toolbar = (props: Props) => {
+const Toolbar = () => {
 	const CurrentPath = useSelector((state: RootState) => state.PathState.path);
 
 	return (
-		<div>
-			<p>Current Location: {CurrentPath}</p>
+		<div className="Toolbar">
+			<div className="ArrowContainer">
+				<img src="/Arrow.png" className="PrevArrow" onClick={GoBack} />
+				{/* <img src='../../public/Arrow.png' className='NextArrow' /> */}
+			</div>
+			<div className="PathContainer">
+				<p className="PathText">Current Location: {CurrentPath}</p>
+			</div>
+			<div className="IconContainer">
+				<img src="/SettingsIcon.png" />
+			</div>
 		</div>
 	);
 };

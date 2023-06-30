@@ -15,9 +15,7 @@ export const currentPathSlice = createSlice({
 	initialState,
 	reducers: {
 		setCurrentPath: (state, action) => {
-			console.log('Store Path Payload:', action.payload);
 			state.path = action.payload;
-			console.log('Updated Store Path Payload:', state.path);
 		},
 	},
 });

@@ -1,4 +1,4 @@
-const DefaultPath = 'C:\\Users\\SebCy\\Documents\\';
+const DefaultPath = 'C:\\Users\\SebCy\\Documents';
 const path = require('path');
 const fs = require('fs');
 

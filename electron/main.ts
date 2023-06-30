@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'node:path';
 
 let splashWindow: Electron.BrowserWindow | null = null;
@@ -12,6 +12,7 @@ process.env.PUBLIC = app.isPackaged
 let win: BrowserWindow | null;
 
 const VITE_DEV_SERVER_URL = process.env['VITE_DEV_SERVER_URL'];
+app.commandLine.appendSwitch('disable-http-cache');
 
 function createWindow() {
 	splashWindow = new BrowserWindow({
@@ -25,7 +26,7 @@ function createWindow() {
 		fullscreenable: false,
 		maximizable: false,
 		resizable: false,
-		alwaysOnTop: true,
+		alwaysOnTop: false,
 		webPreferences: {
 			nodeIntegration: true,
 			contextIsolation: false,
@@ -48,9 +49,11 @@ function createWindow() {
 						fullscreenable: false,
 						maximizable: false,
 						resizable: false,
+
 						webPreferences: {
 							nodeIntegration: true,
 							contextIsolation: false,
+							// devTools: true,
 						},
 					});
 
@@ -64,6 +67,17 @@ function createWindow() {
 							'main-process-message',
 							new Date().toLocaleString()
 						);
+					});
+
+					const reloadApp = () => {
+						if (mainWindow) {
+							mainWindow.reload();
+						}
+					};
+
+					process.on('uncaughtException', (error) => {
+						console.log(error);
+						reloadApp();
 					});
 
 					if (VITE_DEV_SERVER_URL) {
@@ -83,3 +97,15 @@ app.on('window-all-closed', () => {
 });
 
 app.whenReady().then(createWindow);
+
+const consoleMethods: { [key: string]: (...args: any[]) => void } = {
+	log: console.log,
+	error: console.error,
+	warn: console.warn,
+	info: console.info,
+};
+
+ipcMain.on('console-log', (event, level, ...args) => {
+  const consoleMethod = consoleMethods[level] || console.log;
+  consoleMethod(...args);
+});

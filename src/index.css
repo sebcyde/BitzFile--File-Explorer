@@ -1,13 +1,10 @@
 html,
 body,
 #root {
+	background-color: darkgrey;
 	box-sizing: border-box;
 	padding: 0px;
 	height: 100%;
 	margin: 0px;
 	width: 100%;
-}
-
-.black {
-	color: black;
 }

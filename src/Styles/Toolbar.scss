@@ -1,0 +1,53 @@
+.Toolbar {
+	// border: 1px solid red;
+	// border-bottom: 1px solid gray;
+	background-color: gray;
+	display: flex;
+	height: 50px;
+	padding: 5px;
+
+	> div {
+		justify-content: center;
+		box-sizing: border-box;
+		align-items: center;
+		display: flex;
+		padding: 10px;
+		height: 100%;
+		width: 50px;
+	}
+
+	.ArrowContainer {
+		// border: 1px solid blue;
+		height: 100%;
+		img {
+			transform: rotate(180deg);
+			height: 25px;
+			width: auto;
+		}
+	}
+
+	.PathContainer {
+		// border: 1px solid green;
+		justify-content: flex-start;
+		padding: 0px;
+		width: 100%;
+		flex: 1;
+
+		p {
+			box-shadow: 2px 2px 2px black;
+			border: 1px solid black;
+			border-radius: 10px;
+			text-align: start;
+			padding: 10px;
+			width: 100%;
+		}
+	}
+
+	.IconContainer {
+		// border: 1px solid red;
+
+		img {
+			height: 30px;
+		}
+	}
+}
