@@ -1,10 +1,15 @@
 .Toolbar {
 	// border: 1px solid red;
-	// border-bottom: 1px solid gray;
-	background-color: gray;
+	border-bottom: 1px solid aqua;
+	text-shadow: 0px 0px 10px aqua;
+	background-color: transparent;
+	letter-spacing: 1px;
+	font-weight: 500;
 	display: flex;
-	height: 50px;
+	color: aqua;
+	height: 40px;
 	padding: 5px;
+	margin-bottom: 5px;
 
 	> div {
 		justify-content: center;
@@ -18,8 +23,11 @@
 
 	.ArrowContainer {
 		// border: 1px solid blue;
+		display: none;
+
 		height: 100%;
 		img {
+			display: none;
 			transform: rotate(180deg);
 			height: 25px;
 			width: auto;
@@ -45,6 +53,7 @@
 
 	.IconContainer {
 		// border: 1px solid red;
+		display: none;
 
 		img {
 			height: 30px;

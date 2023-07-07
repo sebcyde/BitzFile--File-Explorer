@@ -1,8 +1,11 @@
 html,
 body,
-#root {
-	background-color: darkgrey;
+#root,
+.AppContainer {
+	font-family: 'Chakra Petch', sans-serif;
+	background-color: black;
 	box-sizing: border-box;
+	color: white;
 	padding: 0px;
 	height: 100%;
 	margin: 0px;

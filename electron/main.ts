@@ -106,6 +106,6 @@ const consoleMethods: { [key: string]: (...args: any[]) => void } = {
 };
 
 ipcMain.on('console-log', (event, level, ...args) => {
-  const consoleMethod = consoleMethods[level] || console.log;
-  consoleMethod(...args);
+	const consoleMethod = consoleMethods[level] || console.log;
+	consoleMethod(...args);
 });

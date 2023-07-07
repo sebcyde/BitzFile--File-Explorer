@@ -16,6 +16,7 @@ function App() {
 
 	const InitialLoad = async () => {
 		let res = GetDirectoryContents();
+		res.Directory;
 		setFileNames(res.Contents);
 	};
 
@@ -46,20 +47,25 @@ function App() {
 					{/* <hr /> */}
 					<div className="Display">
 						<div className="CurrentDirectoryDisplay">
-							{FileNames.map((File) => (
-								<li
-									className="FileText"
-									onClick={() => {
-										AppendPath(File);
-									}}
-								>
-									{File}
-								</li>
-							))}
+							<ul>
+								{FileNames.map((File) => (
+									<li
+										className="FileText"
+										onClick={() => {
+											AppendPath(File);
+										}}
+									>
+										{File}
+									</li>
+								))}
+							</ul>
+						</div>
+						<div className="UserBottomToolbar">
+							<div className="UserBox">Current User: SEBASTIAN</div>
 						</div>
 					</div>
 
-					<button onClick={testRedux} />
+					{/* <button onClick={testRedux} /> */}
 				</>
 			)}
 		</div>

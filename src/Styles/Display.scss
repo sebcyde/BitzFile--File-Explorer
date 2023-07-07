@@ -1,21 +1,56 @@
 .Display {
-	height: 100%;
-	padding: 10px;
+	justify-content: space-between;
+	height: calc(100% - 60px);
+	flex-direction: column;
+	padding: 0px 10px;
+	overflow: hidden;
+	display: flex;
+	flex: 1;
+
 	.CurrentDirectoryDisplay {
-		border: 1px solid red;
-		height: 100%;
+		// border: 1px solid red;
+		overflow-x: auto;
+		padding: 0px;
 		width: 60%;
+
+		flex: 1;
 	}
 	ul {
+		padding: 5px;
+		margin: 0px;
 		li {
+			letter-spacing: 1px;
+			color: red;
+
 			list-style: none;
-			margin: 5px 0px;
+			margin: 0px;
 			cursor: pointer;
+			transition: margin-left 0.3s ease;
 			&:hover {
 				// color: salmon;
+				margin-left: 20px;
 				font-weight: bold;
 			}
 		}
 		// list-style: url(../../public/FolderIcon.png);
+	}
+
+	.UserBottomToolbar {
+		align-items: center;
+		position: relative;
+		padding: 5px 10px;
+		display: flex;
+		height: 40px;
+		bottom: 0px;
+
+		.UserBox {
+			text-shadow: 0px 0px 5px white;
+			margin-left: auto;
+			text-align: end;
+			text-shadow: 0px 0px 10px aqua;
+			letter-spacing: 1px;
+			font-weight: 500;
+			color: aqua;
+		}
 	}
 }
