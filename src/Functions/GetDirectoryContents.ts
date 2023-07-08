@@ -1,9 +1,17 @@
-const DefaultPath = 'C:\\Users\\SebCy\\Documents';
-const path = require('path');
-const fs = require('fs');
+import { GetDirectoryData } from './GetDirectoryData';
 
-export const GetDirectoryContents = (Directory: string = DefaultPath) => {
+const path = require('path');
+
+export const GetDirectoryContents = async (Directory: string) => {
+	if (Directory.split('')[Directory.split('').length - 1] == '\\') {
+		Directory = Directory.slice(0, -1);
+	}
+
 	const absolutePath = path.resolve(Directory);
-	const directoryContents = fs.readdirSync(absolutePath);
+	// console.log('GDC - absolutePath:', absolutePath);
+
+	const directoryContents = await GetDirectoryData(absolutePath);
+	// console.log('GDC - directoryContents:', directoryContents);
+
 	return { Directory: absolutePath, Contents: directoryContents };
 };

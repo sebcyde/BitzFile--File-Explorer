@@ -18,9 +18,6 @@ export const GoBack = () => {
 	} else {
 		let NP = CP.slice(0, lastSlashIndex + 1);
 		NP = NP.slice(0, NP.length - 1);
-		console.log('Back CP:', CP);
-
-		console.log('Back NP:', NP);
 
 		store.dispatch(setCurrentPath(NP));
 	}

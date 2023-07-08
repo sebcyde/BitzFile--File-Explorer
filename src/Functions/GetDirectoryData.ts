@@ -2,64 +2,53 @@ import { ipcRenderer } from 'electron';
 import fs from 'fs';
 import { PathChecker } from './PathChecker';
 import * as FileMethods from './FileMethods';
+import { FileObject } from '../Types';
 
-interface FileDetails {
-	name: string;
-	size: number;
-	modifiedAt: Date;
-	type: string | boolean;
-}
-
-export const GetDirectoryData = (DirectoryPath: string): FileDetails[] => {
+export const GetDirectoryData = async (
+	DirectoryPath: string
+): Promise<FileObject[]> => {
 	console.log = (...args) => {
 		ipcRenderer.send('console-log', 'log', ...args);
 	};
 
 	const files = fs.readdirSync(DirectoryPath);
-	const fileDetails: FileDetails[] = [];
-	console.log(' ');
+	const fileDetails: FileObject[] = [];
 
-	files.forEach(async (fileName, i) => {
+	for (const fileName of files) {
+		if (FileMethods.isSymLink(`${DirectoryPath}/${fileName}`)) continue;
+
 		const Type = await PathChecker(`${DirectoryPath}/${fileName}`);
 		const filePath = `${DirectoryPath}/${fileName}`;
-		const stats = fs.statSync(filePath);
 
-		let FT = FileMethods.getFileType(filePath);
-		let Sym = FileMethods.isSymLink(filePath);
-		let AT = FileMethods.getFileLastAccessTime(filePath);
-		let CT = FileMethods.getFileCreationTime(filePath);
-		let MT = FileMethods.getFileModifiedTime(filePath);
-		let OwnerAndGroup = FileMethods.getFileOwnerAndGroup(filePath);
-		let permissions = FileMethods.getFilePermissions(filePath);
-		let accessPermissions = FileMethods.getFileAccessPermissions(filePath);
-		let size = FileMethods.getFileSize(filePath);
+		// console.log('GDD - Data:', fileName);
 
-		if (i == 0 || i == 1) {
-			console.log('Name:', fileName);
-			console.log('Size:', stats.size);
-			console.log('Modified:', stats.mtime);
-			console.log('Type:', Type);
-
-			console.log('getFileType:', FT);
-			console.log('isSymLink:', Sym);
-			console.log('AT:', AT);
-			console.log('CT:', CT);
-			console.log('MT:', MT);
-			console.log('OwnerAndGroup:', OwnerAndGroup);
-			console.log('permissions:', permissions);
-			console.log('accessPermissions:', accessPermissions);
-			console.log('size:', size);
-
-			console.log(' ');
-		}
-
-		fileDetails.push({
+		let FileData: FileObject = {
 			name: fileName,
-			size: stats.size,
-			modifiedAt: stats.mtime,
-			type: Type,
-		});
-	});
+			FileType: FileMethods.getFileType(filePath),
+			SymLink: FileMethods.isSymLink(filePath),
+			AccessTime: FileMethods.getFileLastAccessTime(filePath),
+			CreationTime: FileMethods.getFileCreationTime(filePath),
+			ModifiedTime: FileMethods.getFileModifiedTime(filePath),
+			Permissions: FileMethods.getFilePermissions(filePath),
+			AccessPermissions: FileMethods.getFileAccessPermissions(filePath),
+			Size: FileMethods.getFileSize(filePath),
+			Type,
+		};
+
+		fileDetails.push(FileData);
+	}
+
+	// console.log('GDD - Data:', fileDetails);
 
 	return fileDetails;
+};
+
+export const countDirectories = (array: FileObject[]): number => {
+	return array.reduce((count, obj) => {
+		if (obj.Type === 'directory') {
+			return count + 1;
+		} else {
+			return count;
+		}
+	}, 0);
 };

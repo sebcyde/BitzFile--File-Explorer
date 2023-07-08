@@ -64,4 +64,56 @@
 			}
 		}
 	}
+
+	.RightCard {
+		.card {
+			background: linear-gradient(
+				130deg,
+				hsla(var(--primary200), 0.2),
+				hsla(var(--neutral100), 0)
+			);
+			height: 100%;
+			width: 40%;
+
+			/** Backdrop filter adds that nice Glassmorphism effect if there are background elements **/
+			-webkit-backdrop-filter: blur(0.5px);
+			backdrop-filter: blur(0.5px);
+			box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+		}
+
+		@keyframes glow {
+			0%,
+			100% {
+				stroke-width: 3px;
+			}
+			50% {
+				stroke-width: 6px;
+			}
+		}
+
+		.svg {
+			overflow: visible;
+
+			&__stroke {
+				fill: none;
+				stroke-miterlimit: 10;
+
+				&--glow {
+					stroke-width: 3px;
+					animation-name: glow;
+					stroke: hsla(var(--primary200), 0.5);
+				}
+
+				&--bottom {
+					stroke-width: 1.5px;
+					stroke: hsl(var(--primary200));
+				}
+
+				&--top {
+					stroke-width: 1px;
+					stroke: rgba(255, 255, 255, 1);
+				}
+			}
+		}
+	}
 }

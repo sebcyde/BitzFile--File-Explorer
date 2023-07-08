@@ -30,6 +30,7 @@ export const getFileModifiedTime = (filePath: string): Date => {
 	return modifiedTime;
 };
 
+// Doesnt Work
 export const getFileOwnerAndGroup = (
 	filePath: string
 ): { owner: string; group: string } => {

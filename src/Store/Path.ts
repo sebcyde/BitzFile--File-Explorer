@@ -7,8 +7,8 @@ interface iPathState {
 }
 
 const initialState: iPathState = {
-	path: 'C:\\Users\\SebCy\\Documents\\',
-	futurePath: 'C:\\Users\\SebCy\\Documents\\',
+	path: 'C:\\Users\\SebCy\\Documents',
+	futurePath: 'C:\\Users\\SebCy\\Documents',
 };
 
 export const currentPathSlice = createSlice({

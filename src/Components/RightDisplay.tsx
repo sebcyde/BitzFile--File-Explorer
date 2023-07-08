@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../Store/store';
-import { PathChecker } from '../Functions/PathChecker';
 import LoadingScreen from './LoadingScreen';
-import { GetDirectoryData } from '../Functions/GetDirectoryData';
+import {
+	GetDirectoryData,
+	countDirectories,
+} from '../Functions/GetDirectoryData';
 
 type Props = {};
 
@@ -14,8 +16,12 @@ const RightDisplay = (props: Props) => {
 	);
 
 	const CheckPath = async () => {
-		// console.log('Future Path:', FuturePath);
-		let Data = await GetDirectoryData(FuturePath);
+		console.log('RD - Future Path:', FuturePath);
+		const Data = await GetDirectoryData(FuturePath);
+		// console.log('RD - Directory Data:', Data);
+		const DirectoryCount = countDirectories(Data);
+		console.log('RD - Directories:', DirectoryCount);
+		console.log(' ');
 	};
 
 	useEffect(() => {

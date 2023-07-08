@@ -8,27 +8,44 @@ import { useState, useEffect } from 'react';
 import Toolbar from './Components/Toolbar';
 import { RootState } from './Store/store';
 import './Styles/All.scss';
+import { FileObject } from './Types';
+import LoadingScreen from './Components/LoadingScreen';
+import EmptyDirectory from './Components/EmptyDirectory';
 
 function App() {
 	const CurrentPath = useSelector((state: RootState) => state.PathState.path);
-	const [FileNames, setFileNames] = useState<string[]>(['test']);
 	const [CurrentFile, setCurrentFile] = useState<string>('');
-	const dispatch = useDispatch();
+	const [Loading, setLoading] = useState<boolean>(true);
+	const [Files, setFiles] = useState<FileObject[]>([]);
 
-	const InitialLoad = async () => {
-		let res = GetDirectoryContents();
-		res.Directory;
-		setFileNames(res.Contents);
-	};
+	const UpdateDisplay = async () => {
+		setLoading(true);
+		console.log(' ');
+		console.log('App - Updating Display');
 
-	const UpdateDisplay = () => {
-		let res = GetDirectoryContents(CurrentPath);
-		setCurrentFile(res.Contents[0]);
-		setFileNames(res.Contents);
+		console.log('App - Current Directory:', CurrentPath);
+		try {
+			let res = await GetDirectoryContents(CurrentPath);
+			// console.log('App - GDC', res);
+			const Files = res.Contents.filter((file) => !file.SymLink);
+			const SymLinks = res.Contents.filter((file) => file.SymLink);
+
+			console.log('App - Files', Files.length);
+			console.log('App - Sym Links', SymLinks.length);
+			console.log(' ');
+
+			Files.length > 0 ? AppendFuturePath(Files[0].name) : '';
+			// setCurrentFile(Files[0].name);
+			setFiles(Files);
+			setLoading(false);
+		} catch (error) {
+			console.error('App - Error updating display:', error);
+			setLoading(false);
+		}
 	};
 
 	useEffect(() => {
-		InitialLoad();
+		UpdateDisplay();
 	}, []);
 
 	useEffect(() => {
@@ -38,28 +55,38 @@ function App() {
 	return (
 		<div className="AppContainer">
 			<Toolbar />
-			{/* <hr /> */}
-			<div className="Display">
-				<div className="CurrentDirectoryDisplay">
-					<ul>
-						{FileNames.map((File) => (
-							<li
-								className={`FileText ${CurrentFile == File ? 'active' : ''}`}
-								onClick={() => {
-									AppendPath(File);
-								}}
-								onMouseOver={() => {
-									setCurrentFile(File);
-									AppendFuturePath(File);
-								}}
-							>
-								{File}
-							</li>
-						))}
-					</ul>
-				</div>
-				<RightDisplay />
-			</div>
+			{Loading ? (
+				<LoadingScreen />
+			) : Files.length == 0 ? (
+				<EmptyDirectory />
+			) : (
+				<>
+					<div className="Display">
+						<div className="CurrentDirectoryDisplay">
+							<ul>
+								{Files.map((File) => (
+									<li
+										className={`FileText ${
+											CurrentFile == File.name ? 'active' : ''
+										}`}
+										onClick={() => {
+											console.log('App - Appending File:', File.name);
+											AppendPath(File.name);
+										}}
+										onMouseOver={() => {
+											setCurrentFile(File.name);
+											AppendFuturePath(File.name);
+										}}
+									>
+										{File.name}
+									</li>
+								))}
+							</ul>
+						</div>
+						<RightDisplay />
+					</div>
+				</>
+			)}
 			<BottomToolbar />
 		</div>
 	);

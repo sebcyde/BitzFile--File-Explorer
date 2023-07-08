@@ -10,14 +10,18 @@ export const AppendPath = async (DirectoryName: string) => {
 		ipcRenderer.send('console-log', 'log', ...args);
 	};
 
-	// console.log('Append Path:', path);
+	console.log('Append Path - Path:', path);
 
 	if (path[path.length - 1] !== '\\') {
 		DirectoryName = `\\${DirectoryName}`;
 	}
 
+	console.log(`Append Path - Sent to PathChecker: ${path}${DirectoryName}`);
+
 	let FileType = await PathChecker(`${path}${DirectoryName}`);
-	console.log(FileType);
+	console.log('Append Path - File Type:', FileType);
+
+	console.log(' ');
 
 	if (!FileType) {
 		return;
@@ -34,15 +38,18 @@ export const AppendFuturePath = async (DirectoryName: string) => {
 		ipcRenderer.send('console-log', 'log', ...args);
 	};
 
-	// console.log('Append Path:', path);
+	console.log('Append Future Path:', path);
+	console.log('Appending Future:', DirectoryName);
 
 	if (path[path.length - 1] !== '\\') {
 		DirectoryName = `\\${DirectoryName}`;
 	}
-	console.log(`FP: ${path}${DirectoryName}`);
+	console.log(`Append Future Path FP: ${path}${DirectoryName}`);
 
 	let FileType = await PathChecker(`${path}${DirectoryName}`);
-	console.log('Future Path Type:', FileType);
+	console.log('Append Future Path - FP Type:', FileType);
+
+	console.log(' ');
 
 	if (!FileType) {
 		return;
