@@ -3,7 +3,10 @@ body,
 #root,
 .AppContainer {
 	font-family: 'Chakra Petch', sans-serif;
-	background-color: black;
+	background-color: #100e18;
+	/* background-image: url('./Assets/perspective-pink-grid-dark-background-futuristic-vector-illustration-background-style-80s_710001-733.avif'); */
+	/* background-position: center; */
+	/* background-size: cover; */
 	box-sizing: border-box;
 	color: white;
 	padding: 0px;

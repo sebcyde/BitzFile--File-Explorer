@@ -1,56 +1,67 @@
 .Display {
 	justify-content: space-between;
-	height: calc(100% - 60px);
-	flex-direction: column;
-	padding: 0px 10px;
+	height: calc(100% - 110px);
+	flex-direction: row;
+	box-sizing: border-box;
 	overflow: hidden;
 	display: flex;
+	padding: 20px 10px;
 	flex: 1;
 
 	.CurrentDirectoryDisplay {
-		// border: 1px solid red;
-		overflow-x: auto;
+		overflow-x: hidden;
+		overflow-y: scroll;
 		padding: 0px;
 		width: 60%;
 
-		flex: 1;
-	}
-	ul {
-		padding: 5px;
-		margin: 0px;
-		li {
-			letter-spacing: 1px;
-			color: red;
-
-			list-style: none;
-			margin: 0px;
-			cursor: pointer;
-			transition: margin-left 0.3s ease;
-			&:hover {
-				// color: salmon;
-				margin-left: 20px;
-				font-weight: bold;
-			}
+		&::-webkit-scrollbar {
+			display: none;
 		}
-		// list-style: url(../../public/FolderIcon.png);
+
+		ul {
+			padding: 5px;
+			margin: 0px;
+			width: 100%;
+
+			li {
+				transition: padding-left 0.3s ease;
+				text-overflow: ellipsis;
+				letter-spacing: 1px;
+				list-style: none;
+				cursor: pointer;
+				color: #f72585;
+				font-size: 13px;
+				margin: 0px;
+				width: 100%;
+
+				&:hover {
+					padding-left: 20px;
+					font-weight: bold;
+				}
+			}
+			// list-style: url(../../public/FolderIcon.png);
+		}
 	}
 
-	.UserBottomToolbar {
-		align-items: center;
-		position: relative;
-		padding: 5px 10px;
+	.RightDisplayContainer {
+		border: 1px solid green;
+		overflow-y: scroll;
+		overflow-x: hidden;
 		display: flex;
-		height: 40px;
-		bottom: 0px;
+		width: 40%;
+		flex-direction: column;
 
-		.UserBox {
-			text-shadow: 0px 0px 5px white;
-			margin-left: auto;
-			text-align: end;
-			text-shadow: 0px 0px 10px aqua;
-			letter-spacing: 1px;
-			font-weight: 500;
-			color: aqua;
+		&::-webkit-scrollbar {
+			display: none;
+		}
+
+		.HeaderContainer {
+			background-color: #0a1e21;
+			.Header {
+				text-align: center;
+				width: 100%;
+				font-size: 18px;
+			}
 		}
 	}
 }

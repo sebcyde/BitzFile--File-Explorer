@@ -1,0 +1,29 @@
+.UserBottomToolbar {
+	align-items: center;
+	position: relative;
+	padding: 5px 15px;
+	display: flex;
+	height: 40px;
+	bottom: 0px;
+
+	.UserBox {
+		text-shadow: 0px 0px 5px white;
+		margin-left: auto;
+		text-align: end;
+		text-shadow: 0px 0px 10px aqua;
+		letter-spacing: 1px;
+		font-weight: 500;
+		color: aqua;
+	}
+	.BackButton {
+		text-shadow: 0px 0px 10px white;
+		letter-spacing: 1px;
+		&:hover {
+			font-weight: 500;
+			cursor: pointer;
+		}
+		&:active {
+			color: green;
+		}
+	}
+}

@@ -49,6 +49,7 @@ function createWindow() {
 						fullscreenable: false,
 						maximizable: false,
 						resizable: false,
+						alwaysOnTop: true,
 
 						webPreferences: {
 							nodeIntegration: true,

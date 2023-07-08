@@ -1,17 +1,17 @@
 import { GetDirectoryContents } from './Functions/GetDirectoryContents';
+import { AppendFuturePath, AppendPath } from './Functions/AppendPath';
+import { useDispatch, useSelector } from 'react-redux';
+import BottomToolbar from './Components/BottomToolbar';
+import RightDisplay from './Components/RightDisplay';
+import { setCurrentPath } from './Store/Path';
 import { useState, useEffect } from 'react';
 import Toolbar from './Components/Toolbar';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentPath } from './Store/Path';
-import { AppendPath } from './Functions/AppendPath';
 import { RootState } from './Store/store';
 import './Styles/All.scss';
-import LoadingScreen from './Components/LoadingScreen';
 
 function App() {
-	const [FileNames, setFileNames] = useState<string[]>(['test']);
-	const [Loading, setLoading] = useState<boolean>(true);
 	const CurrentPath = useSelector((state: RootState) => state.PathState.path);
+	const [FileNames, setFileNames] = useState<string[]>(['test']);
 	const dispatch = useDispatch();
 
 	const InitialLoad = async () => {
@@ -39,35 +39,29 @@ function App() {
 
 	return (
 		<div className="AppContainer">
-			{Loading ? (
-				<LoadingScreen />
-			) : (
-				<>
-					<Toolbar />
-					{/* <hr /> */}
-					<div className="Display">
-						<div className="CurrentDirectoryDisplay">
-							<ul>
-								{FileNames.map((File) => (
-									<li
-										className="FileText"
-										onClick={() => {
-											AppendPath(File);
-										}}
-									>
-										{File}
-									</li>
-								))}
-							</ul>
-						</div>
-						<div className="UserBottomToolbar">
-							<div className="UserBox">Current User: SEBASTIAN</div>
-						</div>
-					</div>
-
-					{/* <button onClick={testRedux} /> */}
-				</>
-			)}
+			<Toolbar />
+			{/* <hr /> */}
+			<div className="Display">
+				<div className="CurrentDirectoryDisplay">
+					<ul>
+						{FileNames.map((File) => (
+							<li
+								className="FileText"
+								onClick={() => {
+									AppendPath(File);
+								}}
+								onMouseOver={() => {
+									AppendFuturePath(File);
+								}}
+							>
+								{File}
+							</li>
+						))}
+					</ul>
+				</div>
+				<RightDisplay />
+			</div>
+			<BottomToolbar />
 		</div>
 	);
 }

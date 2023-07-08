@@ -3,10 +3,12 @@ import { RootState } from './store';
 
 interface iPathState {
 	path: string;
+	futurePath: string;
 }
 
 const initialState: iPathState = {
 	path: 'C:\\Users\\SebCy\\Documents\\',
+	futurePath: 'C:\\Users\\SebCy\\Documents\\',
 };
 
 export const currentPathSlice = createSlice({
@@ -17,11 +19,14 @@ export const currentPathSlice = createSlice({
 		setCurrentPath: (state, action) => {
 			state.path = action.payload;
 		},
+		setFuturePath: (state, action) => {
+			state.futurePath = action.payload;
+		},
 	},
 });
 
 // Setter
-export const { setCurrentPath } = currentPathSlice.actions;
+export const { setFuturePath, setCurrentPath } = currentPathSlice.actions;
 
 // Getter
 export const getCurrentStoreStock = (state: RootState) => state.PathState.path;
