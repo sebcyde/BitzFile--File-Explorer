@@ -12,6 +12,7 @@ import './Styles/All.scss';
 function App() {
 	const CurrentPath = useSelector((state: RootState) => state.PathState.path);
 	const [FileNames, setFileNames] = useState<string[]>(['test']);
+	const [CurrentFile, setCurrentFile] = useState<string>('');
 	const dispatch = useDispatch();
 
 	const InitialLoad = async () => {
@@ -22,15 +23,12 @@ function App() {
 
 	const UpdateDisplay = () => {
 		let res = GetDirectoryContents(CurrentPath);
+		setCurrentFile(res.Contents[0]);
 		setFileNames(res.Contents);
 	};
 
-	const testRedux = () => {
-		dispatch(setCurrentPath('redux test'));
-	};
-
 	useEffect(() => {
-		InitialLoad().then(() => setLoading(false));
+		InitialLoad();
 	}, []);
 
 	useEffect(() => {
@@ -46,11 +44,12 @@ function App() {
 					<ul>
 						{FileNames.map((File) => (
 							<li
-								className="FileText"
+								className={`FileText ${CurrentFile == File ? 'active' : ''}`}
 								onClick={() => {
 									AppendPath(File);
 								}}
 								onMouseOver={() => {
+									setCurrentFile(File);
 									AppendFuturePath(File);
 								}}
 							>

@@ -21,7 +21,7 @@
 		ul {
 			padding: 5px;
 			margin: 0px;
-			width: 100%;
+			width: 50%;
 
 			li {
 				transition: padding-left 0.3s ease;
@@ -34,7 +34,7 @@
 				margin: 0px;
 				width: 100%;
 
-				&:hover {
+				&.active {
 					padding-left: 20px;
 					font-weight: bold;
 				}
