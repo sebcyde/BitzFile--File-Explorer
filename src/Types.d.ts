@@ -9,4 +9,5 @@ export interface FileObject {
 	AccessPermissions: {};
 	Size: number;
 	Type: string | boolean;
+	Location: string;
 }

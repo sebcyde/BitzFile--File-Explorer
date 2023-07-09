@@ -15,16 +15,16 @@ export const PathChecker = async (path: string): Promise<string | boolean> => {
 			}
 
 			if (stats.isFile()) {
-				console.log(`Path Checker FILE - ${path}`);
+				// console.log(`Path Checker FILE - ${path}`);
 				resolve('file');
 			} else if (stats.isDirectory()) {
-				console.log(`Path Checker DIRECTORY - ${path}`);
+				// console.log(`Path Checker DIRECTORY - ${path}`);
 				resolve('directory');
 			} else {
-				console.log(`Path Checker OTHER - ${path}`);
+				// console.log(`Path Checker OTHER - ${path}`);
 				resolve(false);
 			}
-			console.log(' ');
+			// console.log(' ');
 		});
 	});
 };

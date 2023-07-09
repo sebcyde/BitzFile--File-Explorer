@@ -54,6 +54,8 @@ function createWindow() {
 						webPreferences: {
 							nodeIntegration: true,
 							contextIsolation: false,
+							webSecurity: false,
+							allowFileAccess: true,
 							// devTools: true,
 						},
 					});

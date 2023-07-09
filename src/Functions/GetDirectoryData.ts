@@ -33,6 +33,7 @@ export const GetDirectoryData = async (
 			AccessPermissions: FileMethods.getFileAccessPermissions(filePath),
 			Size: FileMethods.getFileSize(filePath),
 			Type,
+			Location: `${DirectoryPath}/${fileName}`,
 		};
 
 		fileDetails.push(FileData);
@@ -46,6 +47,16 @@ export const GetDirectoryData = async (
 export const countDirectories = (array: FileObject[]): number => {
 	return array.reduce((count, obj) => {
 		if (obj.Type === 'directory') {
+			return count + 1;
+		} else {
+			return count;
+		}
+	}, 0);
+};
+
+export const countFiles = (array: FileObject[]): number => {
+	return array.reduce((count, obj) => {
+		if (obj.Type === 'file') {
 			return count + 1;
 		} else {
 			return count;

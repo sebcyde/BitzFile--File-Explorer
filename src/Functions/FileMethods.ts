@@ -1,4 +1,5 @@
 import { execSync } from 'child_process';
+import isImage from 'is-image';
 import path from 'path';
 import fs from 'fs';
 
@@ -82,4 +83,8 @@ export const getFileAccessPermissions = (filePath: string): {} => {
 export const getFileSize = (filePath: string): number => {
 	const stats = fs.statSync(filePath);
 	return stats.size;
+};
+
+export const isImageFile = (FilePath: string): boolean => {
+	return isImage(FilePath);
 };

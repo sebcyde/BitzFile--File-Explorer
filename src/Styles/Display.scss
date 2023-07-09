@@ -44,74 +44,87 @@
 	}
 
 	.RightDisplayContainer {
-		border: 1px solid green;
-		overflow-y: scroll;
-		overflow-x: hidden;
-		display: flex;
-		width: 40%;
 		flex-direction: column;
+		border-radius: 10px;
+		position: absolute;
+		display: flex;
+		width: 70%;
+		right: 0px;
+		align-items: end;
+		// overflow: hidden;
+
+		// box-shadow: 3px 3px 5px black;
+		// border: 1px solid green;
+
+		.Overlay {
+			// border: 1px solid blue;
+			position: absolute;
+			height: 500px;
+			width: 70%;
+			z-index: 1;
+			top: -80px;
+			right: 0px;
+		}
 
 		&::-webkit-scrollbar {
 			display: none;
 		}
 
-		.HeaderContainer {
-			background-color: #0a1e21;
-			.Header {
-				text-align: center;
+		.container {
+			// border: 1px solid red;
+			justify-content: center;
+			flex-direction: column;
+			position: relative;
+			align-items: end;
+			overflow: hidden;
+			display: flex;
+			width: 250px;
+			right: 70px;
+			z-index: 2;
+			top: 50px;
+
+			.HeaderContainer {
+				overflow: hidden;
+				height: 50px;
 				width: 100%;
-				font-size: 18px;
+
+				.Header {
+					text-overflow: ellipsis;
+					text-align: center;
+					font-weight: 500;
+					font-size: 16px;
+					width: 100%;
+				}
 			}
-		}
-	}
 
-	.RightCard {
-		.card {
-			background: linear-gradient(
-				130deg,
-				hsla(var(--primary200), 0.2),
-				hsla(var(--neutral100), 0)
-			);
-			height: 100%;
-			width: 40%;
+			.ComponentContainer {
+				flex-direction: column;
+				align-items: center;
+				overflow-x: hidden;
+				position: relative;
+				overflow-y: auto;
+				display: flex;
+				width: 100%;
+				z-index: 2;
 
-			/** Backdrop filter adds that nice Glassmorphism effect if there are background elements **/
-			-webkit-backdrop-filter: blur(0.5px);
-			backdrop-filter: blur(0.5px);
-			box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-		}
-
-		@keyframes glow {
-			0%,
-			100% {
-				stroke-width: 3px;
-			}
-			50% {
-				stroke-width: 6px;
-			}
-		}
-
-		.svg {
-			overflow: visible;
-
-			&__stroke {
-				fill: none;
-				stroke-miterlimit: 10;
-
-				&--glow {
-					stroke-width: 3px;
-					animation-name: glow;
-					stroke: hsla(var(--primary200), 0.5);
+				&::-webkit-scrollbar {
+					display: none;
 				}
 
-				&--bottom {
-					stroke-width: 1.5px;
-					stroke: hsl(var(--primary200));
-				}
+				.ImageDisplayComponent {
+					justify-content: center;
+					align-items: center;
+					object-fit: cover;
+					overflow: hidden;
+					display: flex;
+					height: 180px;
+					width: 100%;
 
-				&--top {
-					stroke-width: 1px;
-					stroke: rgba(255, 255, 255, 1);
+					img {
+						object-fit: cover;
+						height: auto;
+						width: 100%;
+					}
 				}
 			}
 		}
